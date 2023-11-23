@@ -26,7 +26,19 @@ public async Task<ActionResult<IEnumerable<ClientesYPedidos>>> ClientesConPedido
 ### Codigo:
 
 ```c#
-
+public async Task<IEnumerable<ClientesYPedidos>> ClientsWithOrders()
+{
+    return await (from cli in _context.Clientes
+                 join ped in _context.Pedidos
+                 on cli.CodigoCliente equals ped.CodigoCliente into pedGroup
+                 select new ClientesYPedidos
+                 {
+                    CodigoCliente = cli.CodigoCliente,
+                    NombreCliente = cli.NombreCliente,
+                    CantPedidos = pedGroup.Count()
+                 }
+    ).ToListAsync();
+}
 ```
 
 
@@ -41,7 +53,14 @@ producto.
 ### Endpoint:
 
 ```c#
-[HttpGet("ClientesConPedidos")]
+[HttpGet("ProductosSinVender")]
+[ProducesResponseType(StatusCodes.Status200OK)]
+[ProducesResponseType(StatusCodes.Status400BadRequest)]
+public async Task<ActionResult<IEnumerable<ProductDontSells>>> ProductosSinVender()
+{
+    var entity = await _unitOfWork.Productos.GetProductsDontSell();
+    return _mapper.Map<List<ProductDontSells>>(entity);
+}        
 ```
 
 ### Codigo:
@@ -91,27 +110,27 @@ public async Task<ActionResult<IEnumerable<EmpleadosYOficina>>> ClientesAndOfici
 
 ```c#
 public async Task<IEnumerable<EmpleadosYOficina>> GetEmployessDontRepresentant()
-        {
-            return await (from emp in _context.Empleados
-                          join cli in _context.Clientes
-                          on emp.CodigoEmpleado equals cli.CodigoEmpleadoRepVentas into cligroup
-                          from cli in cligroup.DefaultIfEmpty()
-                          join of in _context.Oficinas
-                          on emp.CodigoOficina equals of.CodigoOficina
-                          where cli.CodigoEmpleadoRepVentas != emp.CodigoEmpleado 
-                          select new EmpleadosYOficina
-                          {
-                            CodigoEmpleado = emp.CodigoEmpleado,
-                            ClienteRepVentas = cli.CodigoEmpleadoRepVentas,
-                            Nombre = emp.Nombre,
-                            Apellido1 = emp.Apellido1,
-                            Apellido2 = emp.Apellido2,
-                            Puesto = emp.Puesto,
-                            TelefonoOficina = of.Telefono               
-                          }
-            ).ToListAsync();
+{
+    return await (from emp in _context.Empleados
+                  join cli in _context.Clientes
+                  on emp.CodigoEmpleado equals cli.CodigoEmpleadoRepVentas into cligroup
+                  from cli in cligroup.DefaultIfEmpty()
+                  join of in _context.Oficinas
+                  on emp.CodigoOficina equals of.CodigoOficina
+                  where cli.CodigoEmpleadoRepVentas != emp.CodigoEmpleado 
+                  select new EmpleadosYOficina
+                  {
+                    CodigoEmpleado = emp.CodigoEmpleado,
+                    ClienteRepVentas = cli.CodigoEmpleadoRepVentas,
+                    Nombre = emp.Nombre,
+                    Apellido1 = emp.Apellido1,
+                    Apellido2 = emp.Apellido2,
+                    Puesto = emp.Puesto,
+                    TelefonoOficina = of.Telefono               
+                  }
+    ).ToListAsync();
 
-        }
+}
 ```
 ****
 
@@ -166,35 +185,35 @@ cada cliente.
 
 ```c#
 [HttpGet("GamasProductosCompradas")]
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<ActionResult<IEnumerable<ClientesGamasProductos>>> GamasProductosCompradas()
-        {
-            var entity = await _unitOfWork.GamasProductos.GamasProductosAndHerClients();
-            return _mapper.Map<List<ClientesGamasProductos>>(entity);
-        }
+[ProducesResponseType(StatusCodes.Status200OK)]
+[ProducesResponseType(StatusCodes.Status400BadRequest)]
+public async Task<ActionResult<IEnumerable<ClientesGamasProductos>>> GamasProductosCompradas()
+{
+    var entity = await _unitOfWork.GamasProductos.GamasProductosAndHerClients();
+    return _mapper.Map<List<ClientesGamasProductos>>(entity);
+}
 ```
 
 ### Codigo:
 
 ```c#
 Task<IEnumerable<ClientesGamasProductos>> GamasProductosAndHerClients()
-        {
-            return await (from gam in _context.GamaProductos
-                         join pro in _context.Productos
-                         on gam.Gama equals pro.Gama 
-                         join detped in _context.DetallePedidos
-                         on pro.CodigoProducto equals detped.CodigoProducto
-                         join ped in _context.Pedidos
-                         on detped.CodigoPedido equals ped.CodigoPedido
-                        join cli in _context.Clientes
-                        on ped.CodigoCliente equals cli.CodigoCliente into clientgroup
-                         select new ClientesGamasProductos
-                         {
-                            NombreGama = gam.Gama,
-                            Clientes = clientgroup
-                         }
-            ).ToListAsync();
-        }
+{
+    return await (from gam in _context.GamaProductos
+                 join pro in _context.Productos
+                 on gam.Gama equals pro.Gama 
+                 join detped in _context.DetallePedidos
+                 on pro.CodigoProducto equals detped.CodigoProducto
+                 join ped in _context.Pedidos
+                 on detped.CodigoPedido equals ped.CodigoPedido
+                join cli in _context.Clientes
+                on ped.CodigoCliente equals cli.CodigoCliente into clientgroup
+                 select new ClientesGamasProductos
+                 {
+                    NombreGama = gam.Gama,
+                    Clientes = clientgroup
+                 }
+    ).ToListAsync();
+}
 ```
 ****
