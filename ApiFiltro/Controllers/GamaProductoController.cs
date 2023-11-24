@@ -50,5 +50,19 @@ namespace ApiFiltro.Controllers
             var entity = await _unitOfWork.GamasProductos.GamasProductosAndHerClients();
             return _mapper.Map<List<ClientesGamasProductos>>(entity);
         }
+
+        [HttpGet("CustomersGammas")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public async Task<ActionResult<string>> CustomersGammas()
+        {
+            var results = await _unitOfWork.GamasProductos.CustomersGammas();
+
+            if (results == null)
+            {
+                return NotFound();
+            }
+            return Ok(results);
+        }
     }
 }

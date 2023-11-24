@@ -36,5 +36,24 @@ namespace Application.Repositories
                          }
             ).ToListAsync();
         }
+
+        public async Task<IEnumerable<Object>> CustomersGammas()
+        {
+            var results = await (
+                from cli in _context.Clientes
+                join ped in _context.Pedidos on cli.CodigoCliente equals ped.CodigoCliente
+                join detped in _context.DetallePedidos on ped.CodigoPedido equals detped.CodigoPedido
+                join pro in _context.Productos on detped.CodigoProducto equals pro.CodigoProducto
+                group new { cli, pro.Gama } by new { cli.CodigoCliente, cli.NombreCliente } into grouped
+                select new
+                {
+                    ClienteNombre = grouped.Key.NombreCliente,
+                    GamasCompradas = string.Join(", ", grouped.Select(x => x.Gama).Distinct())
+                }
+            ).ToListAsync();
+
+            return results;
+        }
+
     }
 }
