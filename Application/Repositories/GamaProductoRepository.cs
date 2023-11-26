@@ -18,7 +18,7 @@ namespace Application.Repositories
         {
             _context = context;
         }
-        public async Task<IEnumerable<ClientesGamasProductos>> GamasProductosAndHerClients()
+        public async Task<IEnumerable<Object>> GamasProductosAndHerClients()
         {
             return await (from gam in _context.GamaProductos
                          join pro in _context.Productos
@@ -29,30 +29,32 @@ namespace Application.Repositories
                          on detped.CodigoPedido equals ped.CodigoPedido
                         join cli in _context.Clientes
                         on ped.CodigoCliente equals cli.CodigoCliente into clientgroup
-                         select new ClientesGamasProductos
+                         select new
                          {
                             NombreGama = gam.Gama,
-                            Clientes = clientgroup
+                            Clientes = string.Join(", ", clientgroup.Select(x => x.NombreCliente).Distinct())
                          }
             ).ToListAsync();
         }
 
         public async Task<IEnumerable<Object>> CustomersGammas()
         {
-            var results = await (
+            return await (
                 from cli in _context.Clientes
-                join ped in _context.Pedidos on cli.CodigoCliente equals ped.CodigoCliente
-                join detped in _context.DetallePedidos on ped.CodigoPedido equals detped.CodigoPedido
-                join pro in _context.Productos on detped.CodigoProducto equals pro.CodigoProducto
-                group new { cli, pro.Gama } by new { cli.CodigoCliente, cli.NombreCliente } into grouped
+                join ped in _context.Pedidos
+                on cli.CodigoCliente equals ped.CodigoCliente
+                join detped in _context.DetallePedidos
+                on ped.CodigoPedido equals detped.CodigoPedido
+                join pro in _context.Productos 
+                on detped.CodigoProducto equals pro.CodigoProducto
+                group new { cli, pro.Gama } 
+                by new { cli.CodigoCliente, cli.NombreCliente } into grouped
                 select new
                 {
                     ClienteNombre = grouped.Key.NombreCliente,
                     GamasCompradas = string.Join(", ", grouped.Select(x => x.Gama).Distinct())
                 }
             ).ToListAsync();
-
-            return results;
         }
 
     }

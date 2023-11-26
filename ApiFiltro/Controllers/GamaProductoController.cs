@@ -45,10 +45,10 @@ namespace ApiFiltro.Controllers
         [HttpGet("GamasProductosCompradas")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<ActionResult<IEnumerable<ClientesGamasProductos>>> GamasProductosCompradas()
+        public async Task<ActionResult<IEnumerable<string>>> GamasProductosCompradas()
         {
             var entity = await _unitOfWork.GamasProductos.GamasProductosAndHerClients();
-            return _mapper.Map<List<ClientesGamasProductos>>(entity);
+            return _mapper.Map<List<string>>(entity);
         }
 
         [HttpGet("CustomersGammas")]

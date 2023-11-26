@@ -41,6 +41,7 @@ namespace Application.Repositories
             return await (from cli in _context.Clientes
                          join ped in _context.Pedidos
                          on cli.CodigoCliente equals ped.CodigoCliente into pedGroup
+                         where pedGroup.Count() > 0
                          select new ClientesYPedidos
                          {
                             CodigoCliente = cli.CodigoCliente,
