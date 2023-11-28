@@ -50,5 +50,16 @@ namespace ApiFiltro.Controllers
             var entity = await _unitOfWork.Productos.GetProductsDontSell();
             return _mapper.Map<List<ProductDontSells>>(entity);
         }
+
+        // 8
+
+        [HttpGet("ProductosMasVendidos20")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public async Task<ActionResult<IEnumerable<ProductosMasVendidos20>>> ProductosMasVendidos20()
+        {
+            var entity = await _unitOfWork.Productos.GetTwentyProducts();
+            return _mapper.Map<List<ProductosMasVendidos20>>(entity);
+        }
     }
 }

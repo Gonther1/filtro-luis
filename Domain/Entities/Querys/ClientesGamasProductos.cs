@@ -7,7 +7,7 @@ namespace Domain.Entities.Querys
 {
     public class ClientesGamasProductos
     {
-        public string NombreGama { get; set; }
-        public IEnumerable<Cliente> Clientes { get; set; }
+        public string ClienteNombre { get; set; }
+        public IEnumerable<object> GamasCompradas { get; set; }
     }
 }

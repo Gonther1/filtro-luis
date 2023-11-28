@@ -42,21 +42,12 @@ namespace ApiFiltro.Controllers
 
         // 10
 
-        [HttpGet("GamasProductosCompradas")]
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<ActionResult<IEnumerable<string>>> GamasProductosCompradas()
-        {
-            var entity = await _unitOfWork.GamasProductos.GamasProductosAndHerClients();
-            return _mapper.Map<List<string>>(entity);
-        }
-
         [HttpGet("CustomersGammas")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<ActionResult<string>> CustomersGammas()
+        public async Task<ActionResult<IEnumerable<GamaProducto>>> CustomersGammas()
         {
-            var results = await _unitOfWork.GamasProductos.CustomersGammas();
+            var results = await _unitOfWork.GamasProductos.GamasProductosAndHerClients();
 
             if (results == null)
             {

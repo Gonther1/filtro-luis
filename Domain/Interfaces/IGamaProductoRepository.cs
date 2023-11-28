@@ -9,7 +9,6 @@ namespace Domain.Interfaces
 {
     public interface IGamaProductoRepository : IGenericRepositoryStr<GamaProducto>
     {   
-        Task<IEnumerable<Object>> GamasProductosAndHerClients();
-        Task<IEnumerable<Object>> CustomersGammas();
+        Task<IEnumerable<ClientesGamasProductos>> GamasProductosAndHerClients();
     }
 }

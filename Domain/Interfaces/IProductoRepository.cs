@@ -10,6 +10,7 @@ namespace Domain.Interfaces
     public interface IProductoRepository : IGenericRepositoryStr<Producto>
     {   
         Task<IEnumerable<ProductDontSells>> GetProductsDontSell();
+        Task<IEnumerable<ProductosMasVendidos20>> GetTwentyProducts();
     }
 
 }

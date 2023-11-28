@@ -36,5 +36,21 @@ namespace Application.Repositories
                         
             ).ToListAsync();
         }
+
+        public async Task<IEnumerable<ProductosMasVendidos20>> GetTwentyProducts()
+        {
+            return await (from pro in _context.Productos
+                         join detped in _context.DetallePedidos
+                         on pro.CodigoProducto equals detped.CodigoProducto 
+                         orderby detped.Cantidad 
+                         descending
+                         select new ProductosMasVendidos20
+                         {
+                            CodigoProducto = pro.CodigoProducto,
+                            NombreProducto = pro.Nombre,
+                            UnidadesVendidas = detped.Cantidad
+                         }
+            ).Take(20).ToListAsync();
+        }
     }
 }
