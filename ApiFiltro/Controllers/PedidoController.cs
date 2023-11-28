@@ -41,7 +41,7 @@ namespace ApiFiltro.Controllers
         }
 
         // 2
-        [HttpGet("PedidosTardios")]
+        [HttpGet("PedidosTardios-2")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<ActionResult<IEnumerable<PedidosTardios>>> PedidosTardios()

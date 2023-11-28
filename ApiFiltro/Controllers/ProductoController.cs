@@ -42,7 +42,7 @@ namespace ApiFiltro.Controllers
 
         // 3
 
-        [HttpGet("ProductosSinVender")]
+        [HttpGet("ProductosSinVender-3")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<ActionResult<IEnumerable<ProductDontSells>>> ProductosSinVender()
@@ -53,7 +53,7 @@ namespace ApiFiltro.Controllers
 
         // 8
 
-        [HttpGet("ProductosMasVendidos20")]
+        [HttpGet("ProductosMasVendidos20-8")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<ActionResult<IEnumerable<ProductosMasVendidos20>>> ProductosMasVendidos20()
