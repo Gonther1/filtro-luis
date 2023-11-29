@@ -11,6 +11,7 @@ namespace Domain.Interfaces
     {   
         Task<IEnumerable<ProductDontSells>> GetProductsDontSell();
         Task<IEnumerable<ProductosMasVendidos20>> GetTwentyProducts();
+        Task<ProductoMasVendido> GetProductWithMoreSales();
     }
 
 }

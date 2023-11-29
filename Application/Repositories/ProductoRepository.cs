@@ -52,5 +52,20 @@ namespace Application.Repositories
                          }
             ).Take(20).ToListAsync();
         }
+
+        public async Task<ProductoMasVendido> GetProductWithMoreSales()
+        {
+            return await (from pro in _context.Productos
+                         join detped in _context.DetallePedidos
+                         on pro.CodigoProducto equals detped.CodigoProducto 
+                         orderby detped.Cantidad 
+                         descending
+                         select new ProductoMasVendido
+                         {
+                            NombreProducto = pro.Nombre,
+                            UnidadesVendidas = detped.Cantidad
+                         }
+            ).FirstOrDefaultAsync();
+        }
     }
 }
