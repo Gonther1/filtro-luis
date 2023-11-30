@@ -62,6 +62,7 @@ namespace Application.Repositories
                          descending
                          select new ProductoMasVendido
                          {
+                            CodigoProducto = pro.CodigoProducto,
                             NombreProducto = pro.Nombre,
                             UnidadesVendidas = detped.Cantidad
                          }
