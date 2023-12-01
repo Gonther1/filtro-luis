@@ -35,7 +35,20 @@ namespace Application.Repositories
                          where pro.Gama == "Frutales"
                          select new OficinasSinEmpleados
                          {
-                            
+                              CodigoOficina = of.CodigoOficina,
+                              EmpCodigoOficina = emp.CodigoOficina,
+                              Pais = of.Pais,
+                              Region = of.Region,
+                              Ciudad = of.Ciudad,
+                              CodigoEmpleado = emp.CodigoEmpleado,
+                              CodigoEmpRepVentas = cli.CodigoEmpleadoRepVentas,
+                              CodigoCliente = cli.CodigoCliente,
+                              PedCodigoCliente = ped.CodigoCliente,
+                              CodigoPedido = ped.CodigoPedido,
+                              DetPedCodigoPedido = detped.CodigoPedido,
+                              DetPedCodigoProducto = detped.CodigoProducto,
+                              CodigoProducto = pro.CodigoProducto,
+                              Gama = pro.Gama
                          }
             ).ToListAsync();
         }
