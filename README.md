@@ -2,7 +2,30 @@
 
 ## By Luis Andrés Alvarez Silva J2
 
+## Requisitos
 
+-Tener Netcore 8.0 instalado.
+
+-Instalar el EntityFramework en terminal con el siguiente codigo:
+
+```
+dotnet tool install --global dotnet-ef
+```
+
+## Guia de uso
+
+1- Cree la base de datos, copie y pegue por completo el archivo Database.sql
+
+2- Use la base de datos jardineria y copie y pegue el archivo Data.sql.
+
+3- Ejecute para la visualizacion de las consultas, ubiquese en la carpeta 
+filtro-luis y escriba:
+
+```
+dotnet watch run -p ApiFiltro/
+```
+
+## Consultas
 
 ### Enunciado:
 
