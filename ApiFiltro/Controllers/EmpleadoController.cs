@@ -40,7 +40,7 @@ namespace ApiFiltro.Controllers
 
         // 6
 
-        [HttpGet("ClientesAndOficinas-6")]
+        [HttpGet("ClientesAndOficinas")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<ActionResult<IEnumerable<EmpleadosYOficina>>> ClientesAndOficinas()

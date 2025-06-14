@@ -40,7 +40,7 @@ namespace ApiFiltro.Controllers
 
         // 1
 
-        [HttpGet("ClientesConPedidos-1")]
+        [HttpGet("ClientesConPedidos")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<ActionResult<IEnumerable<ClientesYPedidos>>> ClientesConPedidos()
@@ -51,7 +51,7 @@ namespace ApiFiltro.Controllers
 
         // 9
 
-        [HttpGet("ClientePedidoTardio-9")]
+        [HttpGet("ClientePedidoTardio")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<ActionResult<IEnumerable<ClientePedidoTardio>>> ClientePedidoTardio()

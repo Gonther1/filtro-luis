@@ -4,7 +4,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using Domain.Entities;
-using Domain.Entities.Querys;
 using Domain.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
@@ -37,16 +36,6 @@ namespace ApiFiltro.Controllers
         {
             var entity = await _unitOfWork.Oficinas.GetByIdAsync(id);
             return _mapper.Map<Oficina>(entity);
-        }
-
-        [HttpGet("OficinasSinRepresentantesDeVentas-4")]
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status204NoContent)]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<ActionResult<IEnumerable<OficinasSinEmpleados>>> OficinasSinRepresentantesDeVentas()
-        {
-            var entity = await _unitOfWork.Oficinas.OfficeWithoutRepresentantOfSales();
-            return _mapper.Map<List<OficinasSinEmpleados>>(entity);
         }
     }
 }

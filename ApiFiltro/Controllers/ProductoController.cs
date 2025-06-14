@@ -42,7 +42,7 @@ namespace ApiFiltro.Controllers
 
         // 3
 
-        [HttpGet("ProductosSinVender-3")]
+        [HttpGet("ProductosSinVender")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<ActionResult<IEnumerable<ProductDontSells>>> ProductosSinVender()
@@ -51,20 +51,9 @@ namespace ApiFiltro.Controllers
             return _mapper.Map<List<ProductDontSells>>(entity);
         }
 
-        // 7
-
-        [HttpGet("ProductoMasVendido-7")]
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<ActionResult<ProductoMasVendido>> ProductoMasVendido()
-        {
-            var entity = await _unitOfWork.Productos.GetProductWithMoreSales();
-            return _mapper.Map<ProductoMasVendido>(entity);
-        }
-
         // 8
 
-        [HttpGet("ProductosMasVendidos20-8")]
+        [HttpGet("ProductosMasVendidos20")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<ActionResult<IEnumerable<ProductosMasVendidos20>>> ProductosMasVendidos20()
@@ -72,6 +61,5 @@ namespace ApiFiltro.Controllers
             var entity = await _unitOfWork.Productos.GetTwentyProducts();
             return _mapper.Map<List<ProductosMasVendidos20>>(entity);
         }
-
     }
 }

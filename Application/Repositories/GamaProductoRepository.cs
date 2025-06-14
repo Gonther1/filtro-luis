@@ -30,10 +30,9 @@ namespace Application.Repositories
                 on ped.CodigoPedido equals detped.CodigoPedido
                 join pro in _context.Productos 
                 on detped.CodigoProducto equals pro.CodigoProducto
+                /* group new { cli, pro.Gama } 
+                by new { cli.CodigoCliente, cli.NombreCliente } into grouped */
                 group pro.Gama by new { cli.CodigoCliente, cli.NombreCliente } into grouped
-
-                // Agrupa las Gamas del producto por el codigo de cliente y el nombre en grouped
-
                 select new ClientesGamasProductos
                 {
                     ClienteNombre = grouped.Key.NombreCliente,

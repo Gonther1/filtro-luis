@@ -42,7 +42,7 @@ namespace ApiFiltro.Controllers
 
         // 10
 
-        [HttpGet("CustomersGammas-10")]
+        [HttpGet("CustomersGammas")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<ActionResult<IEnumerable<GamaProducto>>> CustomersGammas()
